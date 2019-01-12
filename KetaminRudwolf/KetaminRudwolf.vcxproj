@@ -159,7 +159,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\game\Game.cpp" />
+    <ClCompile Include="src\window\EventHandler.cpp" />
+    <ClCompile Include="src\window\EventListener.cpp" />
     <ClCompile Include="src\KetaminRudwolf.cpp" />
+    <ClCompile Include="src\window\Window.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\game\Game.hpp" />
+    <ClInclude Include="src\window\EventHandler.hpp" />
+    <ClInclude Include="src\window\EventListener.hpp" />
+    <ClInclude Include="src\window\Window.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
