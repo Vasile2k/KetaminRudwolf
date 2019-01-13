@@ -186,6 +186,7 @@
     <ClInclude Include="src\Debug.hpp" />
     <ClInclude Include="src\game\Game.hpp" />
     <ClInclude Include="src\Pch.hpp" />
+    <ClInclude Include="src\window\Common.hpp" />
     <ClInclude Include="src\window\EventHandler.hpp" />
     <ClInclude Include="src\window\EventListener.hpp" />
     <ClInclude Include="src\window\GlobalGLFWEventHandler.hpp" />

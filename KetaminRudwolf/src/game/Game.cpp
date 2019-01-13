@@ -48,15 +48,15 @@ class GameHandler : public EventHandler {
 	}
 
 	void onMouseButton(int button, int action, int modifiers) {
-
+		std::cout << "Pressed button " << button << std::endl;
 	}
 
 	void onCursorPosition(double xPos, double yPos) {
-
+		std::cout << "Pos " << xPos << std::endl;
 	}
 
 	void onScroll(double xPos, double yPos) {
-
+		std::cout << "Scroll " << xPos << std::endl;
 	}
 
 };

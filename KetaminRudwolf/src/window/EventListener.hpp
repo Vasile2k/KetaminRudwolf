@@ -1,7 +1,8 @@
 #pragma once
+#include "Common.hpp"
 #include "Window.hpp"
 #include "EventHandler.hpp"
-//#include "GlobalGLFWEventHandler.hpp"
+#include "GlobalGLFWEventHandler.hpp"
 
 class EventListener {
 

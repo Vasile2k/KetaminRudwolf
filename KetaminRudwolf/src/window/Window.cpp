@@ -13,6 +13,8 @@ Window::Window(int width, int height, const char* title, bool fullscreen) {
 		throw new std::runtime_error("Failed to create window!");
 	}
 
+	this->m_EventListener = new EventListener(this);
+
 }
 
 void Window::setResolution(int width, int height) {
@@ -73,6 +75,10 @@ void Window::makeContextCurrent() {
 
 EventListener* Window::getEventListener() {
 	return m_EventListener;
+}
+
+GLFWwindow* Window::getGLFWWindow() {
+	return this->m_GLFWwindow;
 }
 
 Window::~Window() {

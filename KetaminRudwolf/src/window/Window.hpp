@@ -1,5 +1,6 @@
 #pragma once
 #include <GLFW/glfw3.h>
+#include "Common.hpp"
 #include "EventListener.hpp"
 
 class Window {
@@ -22,6 +23,7 @@ public:
 	void swapBuffers();
 	void makeContextCurrent();
 	EventListener* getEventListener();
+	GLFWwindow* getGLFWWindow();
 	~Window();
 
 	friend class EventListener;

@@ -1,6 +1,7 @@
 #pragma once
 #include <utility>
 #include <vector>
+#include "Common.hpp"
 #include "Window.hpp"
 #include "EventHandler.hpp"
 
@@ -16,9 +17,10 @@ public:
 	static GlobalGLFWEventHandler* getInstance();
 	void registerWindowListener(Window* w, EventHandler* h);
 	void unregisterWindowListener(Window* w, EventHandler* h);
+
+	friend void onKey(GLFWwindow* window, int key, int scancode, int action, int modifiers);
+	friend void onMouseButton(GLFWwindow* window, int button, int action, int modifiers);
+	friend void onCursorPosition(GLFWwindow* window, double xPos, double yPos);
+	friend void onScroll(GLFWwindow* window, double xPos, double yPos);
 };
 
-void onKey(GLFWwindow* window, int key, int scancode, int action, int modifiers);
-void onMouseButton(GLFWwindow* window, int button, int action, int modifiers);
-void onCursorPosition(GLFWwindow* window, double xPos, double yPos);
-void onScroll(GLFWwindow* window, double xPos, double yPos);
