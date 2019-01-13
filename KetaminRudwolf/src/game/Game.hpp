@@ -1,20 +1,22 @@
 #pragma once
-
 #include "../window/Window.hpp"
-
-#define GLEW_STATIC
-#include <GLEW/glew.h>
 
 class Game {
 
 private:
 
+	static Game* instance;
 	Window *m_Window;
+
+	Game();
+	~Game();
 
 public:
 
-	Game();
+	static Game* getInstance();
+	static void create();
+	static void destroy();
 	int exec();
-	~Game();
+	Window* getWindow();
 
 };

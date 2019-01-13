@@ -1,13 +1,13 @@
 #pragma once
-
-#define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
+#include "EventListener.hpp"
 
 class Window {
 
 private:
 
 	GLFWwindow* m_GLFWwindow;
+	EventListener* m_EventListener;
 
 public:
 	Window() : Window(1280, 720, "K") {};
@@ -21,6 +21,10 @@ public:
 	bool shouldClose();
 	void swapBuffers();
 	void makeContextCurrent();
+	EventListener* getEventListener();
 	~Window();
+
+	friend class EventListener;
+	friend class GlobalGLFWEventHandler;
 
 };

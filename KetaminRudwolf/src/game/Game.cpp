@@ -1,7 +1,6 @@
 #include "Game.hpp"
 
-#include <iostream>
-#include <stdexcept>
+Game* Game::instance = nullptr;
 
 Game::Game() {
 
@@ -15,6 +14,53 @@ Game::Game() {
 	m_Window = new Window();
 }
 
+Game::~Game() {
+	glfwTerminate();
+	delete m_Window;
+}
+
+Game* Game::getInstance() {
+	if (!Game::instance) {
+		throw new std::runtime_error("Game is not initialized!");
+	}
+	return instance;
+}
+
+void Game::create() {
+	if (Game::instance == nullptr) {
+		Game::instance = new Game();
+	} else {
+		throw new std::runtime_error("Game already created!");
+	}
+}
+
+void Game::destroy() {
+	if (Game::instance) {
+		delete Game::instance;
+		Game::instance = nullptr;
+	}
+}
+
+// To test only
+class GameHandler : public EventHandler {
+	void onKey(int key, int scancode, int action, int modifiers) {
+		std::cout << "Pressed key " << key << std::endl;
+	}
+
+	void onMouseButton(int button, int action, int modifiers) {
+
+	}
+
+	void onCursorPosition(double xPos, double yPos) {
+
+	}
+
+	void onScroll(double xPos, double yPos) {
+
+	}
+
+};
+
 int Game::exec() {
 
 
@@ -25,6 +71,10 @@ int Game::exec() {
 
 	m_Window->makeContextCurrent();
 
+	GameHandler* h = new GameHandler();
+
+	m_Window->getEventListener()->registerHandler(h);
+
 	while (!m_Window->shouldClose()) {
 		m_Window->pollEvents();
 		m_Window->swapBuffers();
@@ -33,7 +83,6 @@ int Game::exec() {
 	return 0;
 }
 
-Game::~Game() {
-	glfwTerminate();
-	delete m_Window;
+Window* Game::getWindow() {
+	return this->m_Window;
 }

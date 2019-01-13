@@ -1,5 +1,4 @@
 #include "Window.hpp"
-#include <stdexcept>
 
 Window::Window(int width, int height, const char* title, bool fullscreen) {
 
@@ -72,6 +71,11 @@ void Window::makeContextCurrent() {
 	glfwMakeContextCurrent(m_GLFWwindow);
 }
 
+EventListener* Window::getEventListener() {
+	return m_EventListener;
+}
+
 Window::~Window() {
 	glfwDestroyWindow(m_GLFWwindow);
+	delete m_EventListener;
 }

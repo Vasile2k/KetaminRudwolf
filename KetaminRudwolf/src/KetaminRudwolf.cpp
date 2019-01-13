@@ -1,10 +1,10 @@
+#include "Debug.hpp"
 #include "game/Game.hpp"
 
-int main() {
+entry_point{
 
-	Game *game = new Game();
-	int status = game->exec();
-	delete game;
-
+	Game::create();
+	int status = Game::getInstance()->exec();
+	Game::destroy();
 	return status;
 }
