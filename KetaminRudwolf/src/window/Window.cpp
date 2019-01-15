@@ -2,6 +2,10 @@
 
 Window::Window(int width, int height, const char* title, bool fullscreen) {
 
+	if (glfwInit() != GLFW_TRUE) {
+		throw new std::runtime_error("Failed to initialize GLFW!");
+	}
+
 	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -11,6 +15,12 @@ Window::Window(int width, int height, const char* title, bool fullscreen) {
 
 	if (!m_GLFWwindow) {
 		throw new std::runtime_error("Failed to create window!");
+	}
+
+	glfwMakeContextCurrent(m_GLFWwindow);
+
+	if (glewInit() != GLEW_OK) {
+		throw new std::runtime_error("Failed to initialize GLEW!");
 	}
 
 	this->m_EventListener = new EventListener(this);
@@ -35,7 +45,7 @@ void Window::setFullscreen(bool fullscreen) {
 			int width;
 			int height;
 			glfwGetWindowSize(m_GLFWwindow, &width, &height);
-			glfwSetWindowMonitor(m_GLFWwindow, fullscreen ? glfwGetPrimaryMonitor() : NULL, 0, 0, width, height, GLFW_DONT_CARE);
+			glfwSetWindowMonitor(m_GLFWwindow, fullscreen ? glfwGetPrimaryMonitor() : NULL, 100, 100, width, height, GLFW_DONT_CARE);
 
 		}
 	}

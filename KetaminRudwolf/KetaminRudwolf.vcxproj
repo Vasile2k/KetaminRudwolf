@@ -100,7 +100,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)lib\glfw\include;$(SolutionDir)lib\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib\glfw\include;$(SolutionDir)lib\nuklear\include;$(SolutionDir)lib\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>Pch.hpp</PrecompiledHeaderFile>
       <ForcedIncludeFiles>Pch.hpp;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -118,7 +118,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)lib\glfw\include;$(SolutionDir)lib\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib\glfw\include;$(SolutionDir)lib\nuklear\include;$(SolutionDir)lib\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>Pch.hpp</PrecompiledHeaderFile>
       <ForcedIncludeFiles>Pch.hpp;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -138,7 +138,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)lib\glfw\include;$(SolutionDir)lib\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib\glfw\include;$(SolutionDir)lib\nuklear\include;$(SolutionDir)lib\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>Pch.hpp</PrecompiledHeaderFile>
       <ForcedIncludeFiles>Pch.hpp;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -160,7 +160,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)lib\glfw\include;$(SolutionDir)lib\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib\glfw\include;$(SolutionDir)lib\nuklear\include;$(SolutionDir)lib\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>Pch.hpp</PrecompiledHeaderFile>
       <ForcedIncludeFiles>Pch.hpp;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -175,6 +175,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="src\game\scene\SceneGame.cpp" />
+    <ClCompile Include="src\render\GUIRenderer.cpp" />
+    <ClCompile Include="src\game\scene\SceneOptions.cpp" />
+    <ClCompile Include="src\game\scene\SceneMenu.cpp" />
+    <ClCompile Include="src\game\scene\Scene.cpp" />
+    <ClCompile Include="src\render\Renderer.cpp" />
     <ClCompile Include="src\game\Game.cpp" />
     <ClCompile Include="src\KetaminRudwolf.cpp" />
     <ClCompile Include="src\window\EventHandler.cpp" />
@@ -183,6 +190,13 @@
     <ClCompile Include="src\window\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Shader.hpp" />
+    <ClInclude Include="src\game\scene\SceneGame.hpp" />
+    <ClInclude Include="src\render\GUIRenderer.hpp" />
+    <ClInclude Include="src\game\scene\SceneOptions.hpp" />
+    <ClInclude Include="src\game\scene\SceneMenu.hpp" />
+    <ClInclude Include="src\game\scene\Scene.hpp" />
+    <ClInclude Include="src\render\Renderer.hpp" />
     <ClInclude Include="src\Debug.hpp" />
     <ClInclude Include="src\game\Game.hpp" />
     <ClInclude Include="src\Pch.hpp" />

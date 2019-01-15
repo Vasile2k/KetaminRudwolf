@@ -5,7 +5,7 @@
 #include "Window.hpp"
 #include "EventHandler.hpp"
 
-class GlobalGLFWEventHandler {
+class GlobalGLFWEventHandler final {
 
 private:
 	static GlobalGLFWEventHandler* instance;

@@ -1,22 +1,26 @@
 #include "Game.hpp"
+#include "../render/Renderer.hpp"
+#include "../render/GUIRenderer.hpp"
+#include "scene/SceneMenu.hpp"
 
 Game* Game::instance = nullptr;
 
 Game::Game() {
 
-	if (!glewInit()) {
-		throw new std::runtime_error("Failed to initialize GLEW!");
-	}
-	if (!glfwInit()) {
-		throw new std::runtime_error("Failed to initialize GLFW!");
-	}
-
 	m_Window = new Window();
+
+	m_MenuScene = new SceneMenu(m_CurrentScene);
+	m_CurrentScene = m_MenuScene;
 }
 
 Game::~Game() {
 	glfwTerminate();
 	delete m_Window;
+	if (m_CurrentScene != m_MenuScene) {
+		delete m_CurrentScene;
+	}
+	delete m_MenuScene;
+
 }
 
 Game* Game::getInstance() {
@@ -41,33 +45,10 @@ void Game::destroy() {
 	}
 }
 
-// To test only
-class GameHandler : public EventHandler {
-	void onKey(int key, int scancode, int action, int modifiers) {
-		std::cout << "Pressed key " << key << std::endl;
-	}
-
-	void onMouseButton(int button, int action, int modifiers) {
-		std::cout << "Pressed button " << button << std::endl;
-	}
-
-	void onCursorPosition(double xPos, double yPos) {
-		std::cout << "Pos " << xPos << std::endl;
-	}
-
-	void onScroll(double xPos, double yPos) {
-		std::cout << "Scroll " << xPos << std::endl;
-	}
-
-};
-
 int Game::exec() {
 
 
 	std::cout << "Rudwolf, the dog on da' Key!" << std::endl;
-
-	//m_Window->setFullscreen(true);
-	//m_Window->setFullscreen(false);
 
 	m_Window->makeContextCurrent();
 
@@ -75,9 +56,34 @@ int Game::exec() {
 
 	m_Window->getEventListener()->registerHandler(h);
 
+	std::chrono::milliseconds currentTime = getCurrentTime();
+
 	while (!m_Window->shouldClose()) {
-		m_Window->pollEvents();
+
+		if (m_CurrentScene) {
+			std::chrono::milliseconds now = getCurrentTime();
+			m_CurrentScene->onUpdate(now - currentTime);
+			m_CurrentScene->onRender(Renderer::getInstance());
+			GUIRenderer::getInstance()->newFrame();
+			m_CurrentScene->onGUIRender(GUIRenderer::getInstance());
+			GUIRenderer::getInstance()->render();
+			currentTime = now;
+
+			if (m_CurrentScene != m_MenuScene) {
+				if (m_CurrentScene->isDone()) {
+					delete m_CurrentScene;
+					m_CurrentScene = m_MenuScene;
+				}
+			} else {
+				if (m_CurrentScene->isDone()) {
+					break;
+				}
+			}
+
+		}
+
 		m_Window->swapBuffers();
+		m_Window->pollEvents();
 	}
 
 	return 0;
@@ -85,4 +91,41 @@ int Game::exec() {
 
 Window* Game::getWindow() {
 	return this->m_Window;
+}
+
+Game::GameHandler::GameHandler() {
+
+}
+
+Game::GameHandler::~GameHandler() {
+
+}
+
+void Game::GameHandler::onKey(int key, int scancode, int action, int modifiers) {
+	if (Game::getInstance()->m_CurrentScene) {
+		Game::getInstance()->m_CurrentScene->onKey(key, scancode, action, modifiers);
+	}
+}
+
+void Game::GameHandler::onMouseButton(int button, int action, int modifiers) {
+	if (Game::getInstance()->m_CurrentScene) {
+		Game::getInstance()->m_CurrentScene->onMouseButton(button, action, modifiers);
+	}
+}
+
+void Game::GameHandler::onCursorPosition(double xPos, double yPos) {
+	if (Game::getInstance()->m_CurrentScene) {
+		Game::getInstance()->m_CurrentScene->onCursorPosition(xPos, yPos);
+	}
+}
+
+void Game::GameHandler::onScroll(double xPos, double yPos) {
+	if (Game::getInstance()->m_CurrentScene) {
+		Game::getInstance()->m_CurrentScene->onScroll(xPos, yPos);
+	}
+}
+
+std::chrono::milliseconds getCurrentTime() {
+	using namespace std::chrono;
+	return duration_cast<milliseconds>(system_clock::now().time_since_epoch());
 }

@@ -11,7 +11,7 @@ private:
 	EventListener* m_EventListener;
 
 public:
-	Window() : Window(1280, 720, "K") {};
+	Window() : Window(1280, 720, "KetaminRudwolf") {};
 	Window(int width, int height, const char* title, bool fullscreen = false);
 	void setResolution(int width, int height);
 	void setFullscreen(bool fullscreen);
