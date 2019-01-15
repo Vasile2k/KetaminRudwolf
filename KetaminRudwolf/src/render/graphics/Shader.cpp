@@ -4,25 +4,25 @@ Shader::Shader(const std::string &vertexShaderPath, const std::string &fragmentS
 	char *vertexShaderSource = loadFile(vertexShaderPath);
 	char *fragmentShaderSource = loadFile(fragmentShaderPath);
 
-	unsigned int vertexShaderID = CompileShader(vertexShaderSource, GL_VERTEX_SHADER);
-	unsigned int fragmentShaderID = CompileShader(fragmentShaderSource, GL_FRAGMENT_SHADER);
+	unsigned int vertexShaderID = compileShader(vertexShaderSource, GL_VERTEX_SHADER);
+	unsigned int fragmentShaderID = compileShader(fragmentShaderSource, GL_FRAGMENT_SHADER);
 
-	m_RendererID = CreateProgram(vertexShaderID, fragmentShaderID);
+	m_RendererID = createProgram(vertexShaderID, fragmentShaderID);
 }
 
 Shader::~Shader() {
 	glDeleteProgram(m_RendererID);
 }
 
-void Shader::Bind() const {
+void Shader::bind() const {
 	glUseProgram(m_RendererID);
 }
 
-void Shader::Unbind() const {
+void Shader::unbind() const {
 	glUseProgram(0);
 }
 
-unsigned int Shader::CompileShader(const char *const shaderSource, unsigned int type) {
+unsigned int Shader::compileShader(const char *const shaderSource, unsigned int type) {
 	unsigned int shaderID = glCreateShader(type);
 	glShaderSource(shaderID, 1, &shaderSource, nullptr);
 	delete[] shaderSource;
@@ -65,7 +65,7 @@ char *Shader::loadFile(std::string path) {
 	return shaderSource;
 }
 
-unsigned int Shader::CreateProgram(unsigned int vertexShaderID, unsigned int fragmentShaderID) {
+unsigned int Shader::createProgram(unsigned int vertexShaderID, unsigned int fragmentShaderID) {
 	unsigned int shaderID = glCreateProgram();
 	glAttachShader(shaderID, vertexShaderID);
 	glAttachShader(shaderID, fragmentShaderID);
@@ -96,7 +96,7 @@ unsigned int Shader::CreateProgram(unsigned int vertexShaderID, unsigned int fra
 	return shaderID;
 }
 
-int Shader::GetUniformLocation(const std::string &name) {
+int Shader::getUniformLocation(const std::string &name) {
 	int location = glGetUniformLocation(m_RendererID, name.c_str());
 	if (location == -1) {
 		std::cout << "Uniform " << name.c_str() << " is not here." << std::endl;
@@ -104,18 +104,18 @@ int Shader::GetUniformLocation(const std::string &name) {
 	return location;
 }
 
-void Shader::SetUniform4f(const std::string &name, float f0, float f1, float f2, float f3) {
-	glUniform4f(GetUniformLocation(name), f0, f1, f2, f3);
+void Shader::setUniform4f(const std::string &name, float f0, float f1, float f2, float f3) {
+	glUniform4f(getUniformLocation(name), f0, f1, f2, f3);
 }
 
-void Shader::SetUniform2f(const std::string &name, float f0, float f1) {
-	glUniform2f(GetUniformLocation(name), f0, f1);
+void Shader::setUniform2f(const std::string &name, float f0, float f1) {
+	glUniform2f(getUniformLocation(name), f0, f1);
 }
 
-void Shader::SetUniform1f(const std::string &name, float f) {
-	glUniform1f(GetUniformLocation(name), f);
+void Shader::setUniform1f(const std::string &name, float f) {
+	glUniform1f(getUniformLocation(name), f);
 }
 
-void Shader::SetUniform1i(const std::string &name, int val) {
-	glUniform1i(GetUniformLocation(name), val);
+void Shader::setUniform1i(const std::string &name, int val) {
+	glUniform1i(getUniformLocation(name), val);
 }

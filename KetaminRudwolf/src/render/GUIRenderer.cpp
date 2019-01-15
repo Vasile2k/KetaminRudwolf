@@ -53,11 +53,11 @@ void GUIRenderer::newFrame() {
 	nk_glfw3_new_frame();
 }
 
-void GUIRenderer::begin(const char* title, int x, int y, int width, int height) {
+void GUIRenderer::begin(const char* title, float x, float y, float width, float height) {
 	nk_begin(ctx, title, nk_rect(x, y, width, height), NK_WINDOW_NO_SCROLLBAR);
 }
 
-void GUIRenderer::beginBorderedWindow(const char* title, int x, int y, int width, int height) {
+void GUIRenderer::beginBorderedWindow(const char* title, float x, float y, float width, float height) {
 	nk_begin(ctx, title, nk_rect(x, y, width, height), NK_WINDOW_NO_SCROLLBAR | NK_WINDOW_BACKGROUND | NK_WINDOW_BORDER);
 }
 

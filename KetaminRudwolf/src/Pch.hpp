@@ -15,3 +15,6 @@
 #include <GLEW\glew.h>
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
+
+#define SDL_MAIN_HANDLED
+#include <SDL.h>

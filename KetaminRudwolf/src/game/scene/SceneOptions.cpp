@@ -19,21 +19,20 @@ void SceneOptions::onRender(Renderer* renderer) {
 }
 
 void SceneOptions::onGUIRender(GUIRenderer* guiRenderer) {
-	guiRenderer->beginBorderedWindow("Options", Game::getInstance()->getWindow()->getWidth() / 2 - 175, 150, 350, 200);
+	guiRenderer->beginBorderedWindow("Options", (float)Game::getInstance()->getWindow()->getWidth() / 2.0F - 175.0F, 200.0F, 350.0F, 300.0F);
 	guiRenderer->row(15, 1);
-	guiRenderer->row(70, 2);
+	guiRenderer->row(70, 1);
+	std::string jumpKey = "Jump key : ";
+	jumpKey += getKeyName(Game::getInstance()->getJumpKey());
+	if (guiRenderer->button(jumpKey.c_str())) {
 
-	enum { WINDOWED, FULLSCREEN };
-	static int state = Game::getInstance()->getWindow()->getFullscreen();
-
-	if (guiRenderer->optionLabel("Windowed", state == WINDOWED)) {
-		Game::getInstance()->getWindow()->setFullscreen(false);
-		Game::getInstance()->getWindow()->setResolution(1280, 720);
-		state = WINDOWED;
 	}
-	if (guiRenderer->optionLabel("Fullscreen", state == FULLSCREEN)) {
-		Game::getInstance()->getWindow()->setFullscreen(true);
-		state = FULLSCREEN;
+	guiRenderer->row(15, 1);
+	guiRenderer->row(70, 1);
+	std::string crouchKey = "Jump key : ";
+	crouchKey += getKeyName(Game::getInstance()->getCrouchKey());
+	if (guiRenderer->button(crouchKey.c_str())) {
+
 	}
 	guiRenderer->row(15, 1);
 	guiRenderer->row(70, 1);

@@ -21,7 +21,7 @@ void SceneMenu::onRender(Renderer* renderer) {
 }
 
 void SceneMenu::onGUIRender(GUIRenderer* guiRenderer) {
-	guiRenderer->begin("Game", Game::getInstance()->getWindow()->getWidth() / 2 - 100, 100, 200, 300);
+	guiRenderer->begin("Game", (float)Game::getInstance()->getWindow()->getWidth() / 2.0F - 100.0F, 100.0F, 200.0F, 300.0F);
 	guiRenderer->row(15, 1);
 	guiRenderer->row(70, 1);
 	if (guiRenderer->button("Play")) {

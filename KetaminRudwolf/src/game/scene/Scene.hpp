@@ -16,6 +16,7 @@ public:
 	virtual void onRender(Renderer* renderer) {}
 	virtual void onGUIRender(GUIRenderer* guiRenderer) {}
 	virtual bool isDone() { return done; }
+	virtual bool requireClearing() { return true; }
 	virtual void onKey(int key, int scancode, int action, int modifiers) {}
 	virtual void onMouseButton(int button, int action, int modifiers) {}
 	virtual void onCursorPosition(double xPos, double yPos) {}

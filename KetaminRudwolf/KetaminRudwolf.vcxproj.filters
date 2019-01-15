@@ -51,7 +51,16 @@
     <ClCompile Include="src\game\scene\SceneGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Shader.cpp">
+    <ClCompile Include="src\render\graphics\Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\graphics\drawable\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\player\World.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\player\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -98,7 +107,16 @@
     <ClInclude Include="src\game\scene\SceneGame.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Shader.hpp">
+    <ClInclude Include="src\render\graphics\Shader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\graphics\drawable\Texture.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\player\World.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\player\Player.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
