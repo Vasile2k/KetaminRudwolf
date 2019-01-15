@@ -2,6 +2,7 @@
 #include "Scene.hpp"
 #include "../player/World.hpp"
 #include "../player/Player.hpp"
+#include "../player/Enemy.hpp"
 
 class SceneGame : public Scene {
 
@@ -11,6 +12,7 @@ private:
 	SDL_Renderer* renderer = nullptr;
 	World* world;
 	Player* player;
+	Enemy* enemy;
 	int xScaleFactor = 0;
 	int xPos = 0;
 

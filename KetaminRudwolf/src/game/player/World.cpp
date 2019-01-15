@@ -15,9 +15,9 @@ World::~World() {
 }
 
 void World::onRender() {
-	renderBackgroundLayer(xPos / 4, bg0, renderer);
-	renderBackgroundLayer(xPos / 2, bg1, renderer);
-	renderBackgroundLayer(xPos, fg, renderer);
+	renderBackgroundLayer(xPos / 8, bg0, renderer);
+	renderBackgroundLayer(xPos / 4, bg1, renderer);
+	renderBackgroundLayer(xPos / 2, fg, renderer);
 }
 
 void World::renderBackgroundLayer(int x, SDL_Texture* t, SDL_Renderer* renderer) {

@@ -5,26 +5,35 @@ SceneGame::SceneGame() {
 	renderer = SDL_CreateRenderer(Game::getInstance()->getSDLWindow(), -1, 0);
 	world = new World(renderer);
 	player = new Player(renderer);
+	enemy = new Enemy(renderer);
 }
 
 SceneGame::~SceneGame() {
 	SDL_DestroyRenderer(renderer);
+	delete enemy;
 	delete player;
 	delete world;
 }
 
 void SceneGame::onUpdate(std::chrono::milliseconds deltaTime) {
 	//xPos += xScaleFactor * deltaTime.count();
-	xPos += deltaTime.count();
-	world->onUpdate(xPos);
+	if (!player->died()) {
+		xPos += deltaTime.count();
+		world->onUpdate(xPos);
+		enemy->onUpdate(deltaTime);
+		if (player->checkCollision(enemy)) {
+			player->die();
+		}
+	}
 	player->onUpdate(deltaTime);
 }
 
 void SceneGame::onRender(Renderer* r) {
 	SDL_RenderClear(renderer);
-	//SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-	//SDL_RenderDrawLine(renderer, 0, 0, 100, 100);
 	world->onRender();
+	if (!player->died()) {
+		enemy->onRender();
+	}
 	player->onRender();
 	SDL_RenderPresent(renderer);
 }
@@ -51,9 +60,13 @@ void SceneGame::onKey(int key, int scancode, int action, int modifiers) {
 		//isPaused = true;
 		done = true;
 	}
-	if (key == GLFW_KEY_SPACE) {
+	if (key == Game::getInstance()->getJumpKey()) {
 		if (action == GLFW_PRESS) {
 			player->jump();
+		}
+	} else if (key == Game::getInstance()->getCrouchKey()) {
+		if (action == GLFW_PRESS) {
+			player->crouch();
 		}
 	}
 }

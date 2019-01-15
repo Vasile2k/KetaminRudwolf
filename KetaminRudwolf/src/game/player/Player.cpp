@@ -4,28 +4,49 @@
 
 Player::Player(SDL_Renderer* r) : renderer(r) {
 	texture = IMG_LoadTexture(renderer, "res/tex/Player/santa.png");
+	explosion = IMG_LoadTexture(renderer, "res/tex/Explosion/exp2_0.png");
 }
 
 Player::~Player() {
+	SDL_DestroyTexture(explosion);
 	SDL_DestroyTexture(texture);
 }
 
 void Player::onRender() {
 	SDL_Rect texRect = { spriteX*spriteWidth, spriteY*spriteHeight, spriteWidth - 1, spriteHeight - 1 };
-	SDL_Rect windowRectBg0 = { int(xPos), int(yPos), spriteWidth * 4, spriteHeight * 4 };
-	SDL_RenderCopy(renderer, texture, &texRect, &windowRectBg0);
+	SDL_Rect windowRect = { int(xPos), int(yPos), spriteWidth * 4, spriteHeight * 4 };
+	SDL_RenderCopy(renderer, texture, &texRect, &windowRect);
+	if (isDead) {
+		if (explosionState < 16) {
+			SDL_Rect expRect = { (explosionState % 4) * 64, (explosionState / 4) * 64, 64, 64 };
+			SDL_Rect windowRectExp = { int(xPos), int(yPos) + 100, 256, 256 };
+			SDL_RenderCopy(renderer, explosion, &expRect, &windowRectExp);
+		}
+	}
 }
 
 void Player::onUpdate(std::chrono::milliseconds deltaTime) {
 	millisSinceLastUpdate += deltaTime.count();
 	if (millisSinceLastUpdate > 50) {
-		if (isJumping) {
+		spriteX++;
+		if (isDead) {
+			spriteY = 10;
+			spriteX = min(spriteX, 6);
+			++explosionState;
+			explosionState = min(explosionState, 16);
+		} else if (isJumping) {
 			spriteY = 5;
+			spriteX %= 9;
+		} else if (isCrouching) {
+			spriteY = 6;
+			if (spriteX == 8) {
+				spriteX = 0;
+				isCrouching = false;
+			}
 		} else {
 			spriteY = 1;
+			spriteX %= 8;
 		}
-		spriteX++;
-		spriteX %= isJumping ? 9 : 8;
 		millisSinceLastUpdate -= 50;
 	}
 
@@ -41,9 +62,36 @@ void Player::onUpdate(std::chrono::milliseconds deltaTime) {
 }
 
 void Player::jump() {
-	if (!isJumping) {
-		isJumping = true;
-		ySpeed = -0.5f;
-		yPos += ySpeed;
+	if (!isDead) {
+		if (!isJumping) {
+			isJumping = true;
+			ySpeed = -0.5f;
+			yPos += ySpeed;
+		}
+		isCrouching = false;
 	}
+}
+
+void Player::crouch() {
+	if (!isDead) {
+		isCrouching = true;
+		spriteY = 6;
+		spriteX = 0;
+	}
+}
+
+void Player::die() {
+	isDead = true;
+	spriteY = 10;
+}
+
+bool Player::died() {
+	return isDead;
+}
+
+bool Player::checkCollision(Enemy* enemy) {
+	if (!isJumping) {
+		return fabs(enemy->xPos - this->xPos) < 150.0F;
+	}
+	return false;
 }

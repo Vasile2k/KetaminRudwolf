@@ -47,3 +47,4 @@ public:
 
 std::chrono::milliseconds getCurrentTime();
 const char* getKeyName(int key);
+bool isValidKey(int key);

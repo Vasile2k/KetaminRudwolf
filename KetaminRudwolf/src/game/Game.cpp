@@ -283,3 +283,7 @@ const char* getKeyName(int key) {
 			return nullptr;
 	}
 }
+
+bool isValidKey(int key) {
+	return getKeyName(key) != nullptr;
+}
