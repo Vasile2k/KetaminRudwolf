@@ -11,6 +11,7 @@ private:
 	float yPos = 500.0F;
 	SDL_Renderer* renderer;
 	SDL_Texture* texture;
+	float speed = 1.0F;
 
 	int millisSinceLastUpdate = 0;
 

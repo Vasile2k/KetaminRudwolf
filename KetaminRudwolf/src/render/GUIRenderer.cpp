@@ -30,7 +30,7 @@ GUIRenderer::GUIRenderer() {
 	ctx = nk_glfw3_init(Game::getInstance()->getWindow()->getGLFWWindow(), NK_GLFW3_DEFAULT);
 	struct nk_font_atlas *atlas;
 	nk_glfw3_font_stash_begin(&atlas);
-	struct nk_font *clean = nk_font_atlas_add_from_file(atlas, "ProggyClean.ttf", 24, 0);
+	struct nk_font *clean = nk_font_atlas_add_from_file(atlas, "res/font/ProggyClean.ttf", 24, 0);
 	nk_glfw3_font_stash_end();
 	nk_style_load_all_cursors(ctx, atlas->cursors);
 	nk_style_set_font(ctx, &clean->handle);

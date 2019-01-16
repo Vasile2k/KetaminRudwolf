@@ -2,14 +2,22 @@
 #include "../Game.hpp"
 
 SceneGame::SceneGame() {
+	if (TTF_Init() == -1) {
+		throw new std::runtime_error(TTF_GetError());
+
+	}
 	renderer = SDL_CreateRenderer(Game::getInstance()->getSDLWindow(), -1, 0);
+	font = TTF_OpenFont("res/font/ProggyClean.ttf", 69);
+	const char* s = TTF_GetError();
 	world = new World(renderer);
 	player = new Player(renderer);
 	enemy = new Enemy(renderer);
 }
 
 SceneGame::~SceneGame() {
+	TTF_CloseFont(font);
 	SDL_DestroyRenderer(renderer);
+	TTF_Quit();
 	delete enemy;
 	delete player;
 	delete world;
@@ -35,6 +43,33 @@ void SceneGame::onRender(Renderer* r) {
 		enemy->onRender();
 	}
 	player->onRender();
+
+	std::string score = "Score: ";
+	score += std::to_string(player->getScore());
+
+	SDL_Surface* surface;
+	surface = TTF_RenderText_Solid(font, score.c_str(), { 0, 0, 0, 255 });
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+
+	SDL_Rect textRect = { 0, 0, surface->w, surface->h };
+	SDL_Rect windowRect = { 100, 100, surface->w, surface->h };
+	SDL_RenderCopy(renderer, texture, &textRect, &windowRect);
+
+	SDL_DestroyTexture(texture);
+	SDL_FreeSurface(surface);
+
+	if (player->died()) {
+		surface = TTF_RenderText_Solid(font, "Press ESCAPE to continue.", { 0, 0, 0, 255 });
+		texture = SDL_CreateTextureFromSurface(renderer, surface);
+
+		textRect = { 0, 0, surface->w, surface->h };
+		windowRect = { 100, 200, surface->w, surface->h };
+		SDL_RenderCopy(renderer, texture, &textRect, &windowRect);
+
+		SDL_DestroyTexture(texture);
+		SDL_FreeSurface(surface);
+	}
+
 	SDL_RenderPresent(renderer);
 }
 

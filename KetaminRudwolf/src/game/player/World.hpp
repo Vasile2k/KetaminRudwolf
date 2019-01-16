@@ -8,6 +8,7 @@ private:
 	SDL_Texture* bg1 = nullptr;
 	SDL_Texture* fg = nullptr;
 	SDL_Renderer* renderer = nullptr;
+	float speed = 1.0F;
 	int xPos = 0;
 
 	void renderBackgroundLayer(int x, SDL_Texture* t, SDL_Renderer* renderer);

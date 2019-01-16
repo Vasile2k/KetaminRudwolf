@@ -3,6 +3,7 @@
 #include "../player/World.hpp"
 #include "../player/Player.hpp"
 #include "../player/Enemy.hpp"
+#include <SDL_ttf.h>
 
 class SceneGame : public Scene {
 
@@ -10,6 +11,7 @@ private:
 
 	bool isPaused = false;
 	SDL_Renderer* renderer = nullptr;
+	TTF_Font* font;
 	World* world;
 	Player* player;
 	Enemy* enemy;

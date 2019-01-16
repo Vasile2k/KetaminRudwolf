@@ -15,9 +15,9 @@ World::~World() {
 }
 
 void World::onRender() {
-	renderBackgroundLayer(xPos / 8, bg0, renderer);
-	renderBackgroundLayer(xPos / 4, bg1, renderer);
-	renderBackgroundLayer(xPos / 2, fg, renderer);
+	renderBackgroundLayer(int(speed*(xPos / 8)), bg0, renderer);
+	renderBackgroundLayer(int(speed*(xPos / 4)), bg1, renderer);
+	renderBackgroundLayer(int(speed*(xPos / 2)), fg, renderer);
 }
 
 void World::renderBackgroundLayer(int x, SDL_Texture* t, SDL_Renderer* renderer) {
@@ -33,4 +33,5 @@ void World::renderBackgroundLayer(int x, SDL_Texture* t, SDL_Renderer* renderer)
 
 void World::onUpdate(int xPos) {
 	this->xPos = xPos;
+	speed += 0.0001F;
 }

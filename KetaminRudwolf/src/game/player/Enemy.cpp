@@ -18,7 +18,8 @@ void Enemy::onRender() {
 
 void Enemy::onUpdate(std::chrono::milliseconds deltaTime) {
 	millisSinceLastUpdate += deltaTime.count();
-	xPos -= deltaTime.count();
+	xPos -= speed * deltaTime.count();
+	speed += 0.0001F;
 	if (xPos < -500) {
 		xPos = 1500 + rand() % 2000;
 	}

@@ -6,6 +6,8 @@
 #include <algorithm>
 #include <utility>
 #include <chrono>
+#include <string>
+#include <cstring>
 
 #define VC_EXTRALEAN
 #define WIN32_LEAN_AND_MEAN

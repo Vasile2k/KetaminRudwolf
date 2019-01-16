@@ -22,6 +22,9 @@ private:
 	bool isCrouching = false;
 	bool isDead = false;
 
+	float score = 0;
+	float speed = 1.0F;
+
 	SDL_Renderer* renderer;
 	SDL_Texture* texture;
 	SDL_Texture* explosion;
@@ -38,4 +41,5 @@ public:
 	void die();
 	bool died();
 	bool checkCollision(Enemy* enemy);
+	int getScore();
 };

@@ -19,7 +19,7 @@ void Player::onRender() {
 	if (isDead) {
 		if (explosionState < 16) {
 			SDL_Rect expRect = { (explosionState % 4) * 64, (explosionState / 4) * 64, 64, 64 };
-			SDL_Rect windowRectExp = { int(xPos), int(yPos) + 100, 256, 256 };
+			SDL_Rect windowRectExp = { int(xPos), int(yPos), 356, 356 };
 			SDL_RenderCopy(renderer, explosion, &expRect, &windowRectExp);
 		}
 	}
@@ -27,6 +27,10 @@ void Player::onRender() {
 
 void Player::onUpdate(std::chrono::milliseconds deltaTime) {
 	millisSinceLastUpdate += deltaTime.count();
+	speed += 0.0001F;
+	if (!isDead) {
+		score += 0.001F * deltaTime.count() * speed;
+	}
 	if (millisSinceLastUpdate > 50) {
 		spriteX++;
 		if (isDead) {
@@ -94,4 +98,8 @@ bool Player::checkCollision(Enemy* enemy) {
 		return fabs(enemy->xPos - this->xPos) < 150.0F;
 	}
 	return false;
+}
+
+int Player::getScore() {
+	return (int)score;
 }
